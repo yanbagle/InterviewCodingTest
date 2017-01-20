@@ -1,8 +1,8 @@
 var mainApp = angular.module("mainApp");
-mainApp.factory('transactionApi', function($http) {
+mainApp.factory('transactionApi', function($http,util) {
    var service = {};
    
-   service.getAllTransactions = function(payload) {
+   service.getAllTransactions = function() {
        $http({
             method : 'POST',
             url : 'https://2016.api.levelmoney.com/api/v2/core/get-all-transactions',
@@ -12,7 +12,8 @@ mainApp.factory('transactionApi', function($http) {
                 'Accept': 'application/json'
             }
         }).then(function successCallback(response) {
-            console.log(JSON.stringify(response));
+           //console.log(JSON.stringify(response, null, 2));
+           util.parseResponse(response);
         }, function errorCallback(response) {
             console.log(response.statusText);
         });
