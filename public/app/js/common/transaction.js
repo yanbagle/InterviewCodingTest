@@ -1,19 +1,18 @@
 var mainApp = angular.module('mainApp');
 
-mainApp.factory('util', function(){
+mainApp.factory('transaction', function(){
     
     var service = {};
     
     service.getTransactions = function(transactionData){
        var transactions = transactionData.data.transactions;
        var transactionsArray = [];
-       var transaction,date,year,month,amount,spent,income,spend; 
+       var date,year,month,amount,spent,income,spend; 
        for(var i = 0; i < transactions.length; i++) {
-           transaction = transactions[i];
-           date = transaction['transaction-time'];
-           year = date.substring(0,4);
-           month = date.substring(5,7);
-           amount = transaction.amount / 10000;
+           date = transactions[i]['transaction-time'];
+           year = getYear(date);
+           month = getMonth(date);
+           amount = getAmount(transactions[i].amount);
            spent = 0;
            income = 0;
            if(amount < 0){//if amount is spend
@@ -28,9 +27,8 @@ mainApp.factory('util', function(){
         return transactionsArray;
     };
     
-    service.getSpendAmountByMonthYear = function(year, month, transactionData){
-         var transactionsArray = service.getTransactions(transactionData);
-         var currentTrans; 
+    service.getSpendAmountBySpecificMonthYear = function(year, month, transactionsArray){
+         var current; 
          var totalSpent = 0;
          var totalIncome = 0;
          for(var i = 0; i < transactionsArray.length; i++){
@@ -40,11 +38,41 @@ mainApp.factory('util', function(){
                  totalIncome += current.income;
              }
          }
-        console.log(year + " " + month + " " + totalSpent + " " + totalIncome);
         return new Spend(year, month, totalSpent, totalIncome);
     };
     
+    service.getAllTimeSpendByMonthYear = function(transactionData){
+        var transactionsArray = service.getTransactions(transactionData);
+        /*
+        for(var i  = 0 ; i < transactionsArray.length; i++){
+            console.log(transactionsArray[i].year + " " + transactionsArray[i].month + " " + transactionsArray[i].spent + " " + transactionsArray[i].income);
+        }
+        */
+        var currentMonth, currentYear;
+        var monthSpendArray = [];
+        var spendIndex = 0;
+        for(var i = 0; i < transactionsArray.length; i++){
+            if(currentMonth != transactionsArray[i].month){
+                //set new currentMonth and currentYear
+                currentMonth = transactionsArray[i].month;
+                currentYear = transactionsArray[i].year;
+                monthSpendArray[spendIndex++] = service.getSpendAmountBySpecificMonthYear(currentYear,currentMonth,transactionsArray);
+            }
+        }
+        return monthSpendArray;
+    };
     
+    var getYear = function(date){
+        return date.substring(0,4);
+    };
+    
+    var getMonth = function(date){
+        return date.substring(5,7);
+    };
+    
+    var getAmount = function(amount){
+        return amount / 10000;
+    };
     
     return service;
     
