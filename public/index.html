@@ -2,9 +2,10 @@
 <!DOCTYPE html>
 <html lang="en" ng-app="mainApp" ng-controller="mainController">
   
-    <head>
+  <head>
     <title ng-bind=""></title>
     <meta charset="utf-8">
+    <link rel="stylesheet" type="text/css" href="/node_modules/bootstrap/dist/css/bootstrap.min.css">
   </head>
 
   <body>
@@ -14,7 +15,27 @@
     <script src="app/js/models/spend.js"></script>
     <script src="app/js/services/transactionAPI.js"></script>
       
-      <div>{{data.monthlySpend}}</div>
+    
+    <div class="container">
+        <div class="col-md-4">
+            <h2> All Transactions </h2>
+            <div class = "row">
+                <div class="col-md-3"><b>Year</b></div>
+                <div class="col-md-3"><b>Month</b></div>
+                <div class="col-md-3"><b>Spend</b></div>
+                <div class="col-md-3"><b>income</b></div>
+            </div>
+            <h4 ng-show="loading">Loading data...</h4>
+            <div class="row" ng-repeat="transaction in data.monthlySpend">
+                <div class="col-md-3">{{transaction.year}}</div>
+                <div class="col-md-3">{{transaction.month}}</div>
+                <div class="col-md-3">{{transaction.spent | currency}}</div>
+                <div class="col-md-3">{{transaction.income | currency}}</div>
+            </div>
+        </div>
+    </div> 
+      
+    
   </body>
     
     

@@ -16,7 +16,7 @@ mainApp.factory('transaction', function(){
            spent = 0;
            income = 0;
            if(amount < 0){//if amount is spend
-               spent = amount;
+               spent = amount * -1;
            }
            else{//if amount is income
                income = amount;
@@ -34,8 +34,11 @@ mainApp.factory('transaction', function(){
          for(var i = 0; i < transactionsArray.length; i++){
              current = transactionsArray[i];
              if(current.year == year && current.month == month){
+                 //need to round up the decimals
                  totalSpent += current.spent;
                  totalIncome += current.income;
+                 totalSpent = roundUp(totalSpent,100);
+                 totalIncome = roundUp(totalIncome,100);
              }
          }
         return new Spend(year, month, totalSpent, totalIncome);
@@ -60,6 +63,10 @@ mainApp.factory('transaction', function(){
             }
         }
         return monthSpendArray;
+    };
+    
+    var roundUp = function(num, precision) {
+        return Math.ceil(num * precision) / precision;
     };
     
     var getYear = function(date){
