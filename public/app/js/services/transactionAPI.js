@@ -1,8 +1,10 @@
 var mainApp = angular.module("mainApp");
-mainApp.factory('transactionApi', function($http,util) {
+mainApp.factory('transactionApi', function($http,$q) {
    var service = {};
    
    service.getAllTransactions = function() {
+       var deferred = $q.defer();
+
        $http({
             method : 'POST',
             url : 'https://2016.api.levelmoney.com/api/v2/core/get-all-transactions',
@@ -12,11 +14,12 @@ mainApp.factory('transactionApi', function($http,util) {
                 'Accept': 'application/json'
             }
         }).then(function successCallback(response) {
-           //console.log(JSON.stringify(response, null, 2));
-           util.parseResponse(response);
-        }, function errorCallback(response) {
-            console.log(response.statusText);
+           deferred.resolve(response);
+        }, function errorCallback(err) {
+            deferred.reject(err);
         });
+       
+       return deferred.promise;
    };
    
    return service;
