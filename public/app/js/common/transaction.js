@@ -4,6 +4,7 @@ mainApp.factory('transaction', function(){
     
     var service = {};
     
+    //returns an array of all the transactions from API response 
     service.getTransactions = function(transactionData){
        var transactions = transactionData.data.transactions;
        var transactionsArray = [];
@@ -27,6 +28,7 @@ mainApp.factory('transaction', function(){
         return transactionsArray;
     };
     
+    //returns accumulated spend info for a specific month of the year 
     service.getSpendAmountBySpecificMonthYear = function(year, month, transactionsArray){
          var current; 
          var totalSpent = 0;
@@ -44,6 +46,7 @@ mainApp.factory('transaction', function(){
         return new Spend(year, month, totalSpent, totalIncome);
     };
     
+    //returns every months' spend info so far
     service.getAllTimeSpendByMonthYear = function(transactionData){
         var transactionsArray = service.getTransactions(transactionData);
         /*

@@ -6,24 +6,21 @@ mainApp.controller('mainController', function(transactionApi,transaction,$scope)
     
     $scope.data = {};
     $scope.loading = true;
+    $scope.loadingMessage = "Loading data...";
     
     transactionApi.getAllTransactions().then(function(res,err){
         if(res){
             $scope.data.response = res;      
             getMonthlySpend(res);
+            $scope.loading = false;
         }
         else{
-            //res error handling
+            $scope.loadingMessage = "Error loading transactions. Try refreshing.";
         }
     });
     
     var getMonthlySpend = function(data){ 
         $scope.data.monthlySpend = transaction.getAllTimeSpendByMonthYear(data);
-        $scope.loading = false;
-        for(var i  = 0 ; i < $scope.data.monthlySpend.length; i++){
-            console.log($scope.data.monthlySpend[i].year + " " + $scope.data.monthlySpend[i].month + " " + $scope.data.monthlySpend[i].spent + " " + $scope.data.monthlySpend[i].income);
-        }
-        
     };
     
 });
