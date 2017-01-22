@@ -16,6 +16,7 @@ mainApp.factory('transactionApi', function($http,$q) {
         }).then(function successCallback(response) {
            deferred.resolve(response);
         }, function errorCallback(err) {
+            alert('Error calling API: ' + err.status);
             deferred.reject(err);
         });
        

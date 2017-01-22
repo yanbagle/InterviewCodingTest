@@ -2,17 +2,20 @@ var mainApp = angular.module("mainApp");
 mainApp.factory('filterTransactions', function() {
    var service = {};
    
-   service.noDonuts = function(transModelArray, transSpendArray){
-       var donutMerchants = ['Krispy Kreme Donuts','DUNKIN #336784'];
-       for(var i = 0; i < transSpendArray.length; i++){
+   service.noDonuts = function(transactionsData){
+       var donutMerchants = ['Krispy Kreme Donuts','Dunkin #336784'];
+       var dataCopy = JSON.parse(JSON.stringify(transactionsData));
+       var found = true;
+       for(var i = 0; i < dataCopy.data.transactions.length; i++){
            for(var j = 0; j < donutMerchants.length; j++){
-               if(transModelArray[i].merchant == donutMerchants[j]){
-                   transSpendArray[i].splice(i,1); 
+               if(dataCopy.data.transactions[i] !== undefined && 
+                  dataCopy.data.transactions[i].merchant == donutMerchants[j]){
+                   delete dataCopy.data.transactions[i];
                    break;
                }
            }
        }
-       return transSpendArray;
+       return dataCopy;
    };
     
    service.noCreditPayments = function(transModelArray, transSpendArray){

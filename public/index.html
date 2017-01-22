@@ -15,6 +15,7 @@
     <script src="app/js/common/transaction.js"></script>
     <script src="app/js/models/spend.js"></script>
     <script src="app/js/services/transactionAPI.js"></script>
+    <script src="app/js/common/filterTransactions.js"></script>
       
     <div class="container">
         <div class="col-md-4">
@@ -38,10 +39,21 @@
         
         <div class = "col-md-4">
             <div class = "row top25">
-                <button type="button" class="btn btn-info" ng-click="showNoDonuts()">
-                    No donut transactions</button>
-                <button type="button" class="btn btn-info" ng-click="showNoCreditPayments()">
-                    No credit card payments</button>
+                <button type="button" class="btn btn-success" ng-disabled="loading" ng-click="getMonthlySpend(data.transactionResponse)">All Transactions</button>
+            </div>
+            <div class = "row top10">
+                <button type="button" class="btn btn-info" ng-disabled="loading" ng-click="showNoDonuts()">No donut transactions</button>
+                <button type="button" class="btn btn-info" ng-disabled="loading" ng-click="showNoCreditPayments()">No credit card payments</button>
+            </div>
+            <div class = "row top25">
+                <div class="col-md-4">Average</div>
+                <div class="col-md-4"><b>Spend</b></div>
+                <div class="col-md-4"><b>Income</b></div>
+            </div>
+            <div class = "row">
+                <div class="col-md-4"></div>
+                <div class="col-md-4">{{data.avgSpend | currency}}</div>
+                <div class="col-md-4">{{data.avgIncome | currency}}</div>
             </div>
         </div>
         
