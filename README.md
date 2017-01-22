@@ -1,8 +1,10 @@
 # InterviewCodingTest
 
-This is Node/Angular application. 
+Hi There! 
 
-How to run:
+I've completed the project as a Node/Angular application. 
+
+To run:
 
 1.) In cmd or terminal, cd to where the server.js file is.
 
@@ -11,3 +13,5 @@ How to run:
 3.) In a web browser, go to http://localhost:8080/
 
 The application is able to show transactions without donuts transaction and without CC payments. 
+
+Thank you for your time! 
