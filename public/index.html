@@ -37,7 +37,7 @@
         
         <div class = "col-md-2"></div>
         
-        <div class = "col-md-4">
+        <div class = "col-md-6">
             <div class = "row top25">
                 <button type="button" class="btn btn-success" ng-disabled="loading" ng-click="getMonthlySpend(data.transactionResponse)">All Transactions</button>
             </div>
@@ -45,6 +45,7 @@
                 <button type="button" class="btn btn-info" ng-disabled="loading" ng-click="showNoDonuts()">No donut transactions</button>
                 <button type="button" class="btn btn-info" ng-disabled="loading" ng-click="showNoCreditPayments()">No credit card payments</button>
             </div>
+            
             <div class = "row top25">
                 <div class="col-md-4"><b>Averages</b></div>
             </div>
@@ -56,6 +57,21 @@
                 <div class="col-md-4">{{data.avgSpend | currency}}</div>
                 <div class="col-md-4">{{data.avgIncome | currency}}</div>
             </div>
+            
+            <div ng-show="transactionMessage == 'No CC Payments'">
+                <div class = "row top10" >
+                    <h4><b>CC payments</b></h4>
+                    <div class="col-md-4"><b>Merchant</b></div>
+                    <div class="col-md-4"><b>Amount</b></div>
+                    <div class="col-md-4"><b>Date</b></div>
+                </div>
+                <div class = "row top5" ng-repeat="ccTransaction in data.ccPayments">
+                    <div class="col-md-4">{{ccTransaction.merchant}}</div>
+                    <div class="col-md-4">{{ccTransaction.amount/10000 | currency}}</div>
+                    <div class="col-md-4">{{ccTransaction['transaction-time']}}</div>
+                </div>
+            </div>
+            
         </div>
         
     </div> 

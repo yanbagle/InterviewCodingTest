@@ -7,6 +7,7 @@ mainApp.controller('mainController', function(transactionApi,transaction,filterT
     $scope.data = {};
     $scope.data.transactionResponse;
     $scope.data.monthlySpend;
+    $scope.data.ccPayments;
     $scope.data.avgIncome;
     $scope.data.avgSpend;
     $scope.loading = true;
@@ -43,6 +44,8 @@ mainApp.controller('mainController', function(transactionApi,transaction,filterT
         var noCCTransactions = filterTransactions.noCreditPayments($scope.data.transactionResponse);
         $scope.data.monthlySpend = transaction.getAllTimeSpendByMonthYear(noCCTransactions);
         getAvg($scope.data.monthlySpend);
+        $scope.data.ccPayments = filterTransactions.getCCPayments();
+        console.log(JSON.stringify($scope.data.ccPayments,null,2));
         $scope.transactionMessage = "No CC Payments";
     };
     
