@@ -3,6 +3,7 @@
 This is Node/Angular application. 
 
 How to run:
+
 1.) In cmd or terminal, cd to where the server.js file is.
 
 2.) Run the command "node server.js"
