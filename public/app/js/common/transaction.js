@@ -1,11 +1,12 @@
 var mainApp = angular.module('mainApp');
 
+//for processing transactions response from API
 mainApp.factory('transaction', function(){
     
     var service = {};
     var precision = 100;
     
-    //returns an array of all the transactions based on API response 
+    //returns an array of all the transactions by its relevant info based on API response 
     service.getTransactions = function(transactionData){
        var transactions = transactionData.data.transactions;
        var transactionsArray = [];
@@ -26,6 +27,7 @@ mainApp.factory('transaction', function(){
                else{//if amount is income
                    income = amount;
                }
+               //create new Spend obj and store it inside array
                spend = new Spend(year, month, spent, income, merchant);
                transactionsArray[transactionsArrayIndex++] = spend;
            }

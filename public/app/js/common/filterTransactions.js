@@ -2,6 +2,7 @@ var mainApp = angular.module("mainApp");
 mainApp.factory('filterTransactions', function() {
    var service = {};
    
+   //for storing found cc payments
    var ccPayments;
     
    //used to filter by donuts merchants 
@@ -22,7 +23,7 @@ mainApp.factory('filterTransactions', function() {
     
    //find cc payments that have opposite amounts AND are within 24 hours of each other     
    service.noCreditPayments = function(transactionsData){
-       var date1,date2;
+       var date1,date2;//for comparing the dates b/n 2 transactions
        var hourDifference = 0;//for keeping track of hour difference between 2 transactions 
        var amount,currentTrans,currIndex;
        var dataCopy = JSON.parse(JSON.stringify(transactionsData));

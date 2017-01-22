@@ -14,6 +14,7 @@ mainApp.controller('mainController', function(transactionApi,transaction,filterT
     $scope.loadingMessage = "Loading data...";
     $scope.transactionMessage = "All Transactions";
     
+    //makes request to get all transactions
     transactionApi.getAllTransactions().then(function(res,err){
         if(res){
             $scope.data.transactionResponse = res;      
@@ -22,17 +23,20 @@ mainApp.controller('mainController', function(transactionApi,transaction,filterT
         }
     });
     
+    //gets and sets avg spend
     var getAvg = function(monthlySpend){
         $scope.data.avgIncome = transaction.getAvgIncome(monthlySpend);
         $scope.data.avgSpend = transaction.getAvgSpend(monthlySpend);
     };
     
+    //gets monthly spend info to display on UI
     $scope.getMonthlySpend = function(data){ 
         $scope.data.monthlySpend = transaction.getAllTimeSpendByMonthYear(data);
         getAvg($scope.data.monthlySpend);
         $scope.transactionMessage = "All Transactions";
     };
     
+    //gets transactions without donuts transactions
     $scope.showNoDonuts = function(){
         var noDonutsTransactions = filterTransactions.filterByMerchants($scope.data.transactionResponse, ['Krispy Kreme Donuts','Dunkin #336784']);
         $scope.data.monthlySpend = transaction.getAllTimeSpendByMonthYear(noDonutsTransactions);
@@ -40,6 +44,7 @@ mainApp.controller('mainController', function(transactionApi,transaction,filterT
         $scope.transactionMessage = "No Donuts";
     };
     
+    //get transctions without cc payments
     $scope.showNoCreditPayments = function(){
         var noCCTransactions = filterTransactions.noCreditPayments($scope.data.transactionResponse);
         $scope.data.monthlySpend = transaction.getAllTimeSpendByMonthYear(noCCTransactions);

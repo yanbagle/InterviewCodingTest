@@ -2,6 +2,7 @@ var mainApp = angular.module("mainApp");
 mainApp.factory('transactionApi', function($http,$q) {
    var service = {};
    
+   //calls API to get all transactions from user
    service.getAllTransactions = function() {
        var deferred = $q.defer();
 

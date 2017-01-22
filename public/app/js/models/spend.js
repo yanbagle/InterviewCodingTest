@@ -1,3 +1,4 @@
+//Spend class for storing spend information
 function Spend(year, month, spent, income, merchant){
     this.year = year;
     this.month = month;
