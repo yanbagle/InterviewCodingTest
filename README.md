@@ -14,4 +14,4 @@ To run:
 
 The application is able to show transactions without donuts transaction and without CC payments. 
 
-Thank you for your time! 
+Have fun and thank you for your time! 
