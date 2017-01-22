@@ -11,6 +11,7 @@ mainApp.controller('mainController', function(transactionApi,transaction,filterT
     $scope.data.avgSpend;
     $scope.loading = true;
     $scope.loadingMessage = "Loading data...";
+    $scope.transactionMessage = "All Transactions";
     
     transactionApi.getAllTransactions().then(function(res,err){
         if(res){
@@ -28,16 +29,21 @@ mainApp.controller('mainController', function(transactionApi,transaction,filterT
     $scope.getMonthlySpend = function(data){ 
         $scope.data.monthlySpend = transaction.getAllTimeSpendByMonthYear(data);
         getAvg($scope.data.monthlySpend);
+        $scope.transactionMessage = "All Transactions";
     };
     
     $scope.showNoDonuts = function(){
-        var noDonutsTransactions = filterTransactions.noDonuts($scope.data.transactionResponse);
+        var noDonutsTransactions = filterTransactions.filterByMerchants($scope.data.transactionResponse, ['Krispy Kreme Donuts','Dunkin #336784']);
         $scope.data.monthlySpend = transaction.getAllTimeSpendByMonthYear(noDonutsTransactions);
         getAvg($scope.data.monthlySpend);
+        $scope.transactionMessage = "No Donuts";
     };
     
     $scope.showNoCreditPayments = function(){
-            
+        var noCCTransactions = filterTransactions.filterBy($scope.data.transactionResponse, ['CC Payment','Credit Card Payment']);
+        $scope.data.monthlySpend = transaction.getAllTimeSpendByMonthYear(noCCTransactions);
+        getAvg($scope.data.monthlySpend);
+        $scope.transactionMessage = "No CC Payments";
     };
     
     
