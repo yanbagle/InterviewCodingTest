@@ -46,12 +46,13 @@
                 <button type="button" class="btn btn-info" ng-disabled="loading" ng-click="showNoCreditPayments()">No credit card payments</button>
             </div>
             <div class = "row top25">
-                <div class="col-md-4">Averages</div>
-                <div class="col-md-4"><b>Spend</b></div>
-                <div class="col-md-4"><b>Income</b></div>
+                <div class="col-md-4"><b>Averages</b></div>
+            </div>
+            <div class = "row top5">
+                <div class="col-md-4">Spend</div>
+                <div class="col-md-4">Income</div>
             </div>
             <div class = "row">
-                <div class="col-md-4"></div>
                 <div class="col-md-4">{{data.avgSpend | currency}}</div>
                 <div class="col-md-4">{{data.avgIncome | currency}}</div>
             </div>

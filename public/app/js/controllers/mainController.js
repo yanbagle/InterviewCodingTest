@@ -40,7 +40,7 @@ mainApp.controller('mainController', function(transactionApi,transaction,filterT
     };
     
     $scope.showNoCreditPayments = function(){
-        var noCCTransactions = filterTransactions.filterBy($scope.data.transactionResponse, ['CC Payment','Credit Card Payment']);
+        var noCCTransactions = filterTransactions.noCreditPayments($scope.data.transactionResponse);
         $scope.data.monthlySpend = transaction.getAllTimeSpendByMonthYear(noCCTransactions);
         getAvg($scope.data.monthlySpend);
         $scope.transactionMessage = "No CC Payments";
